@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autofill.js - Zero Config example</title>
+  <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- bootstrap css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- custom css -->
+  <style>
+    pre code {
+      border-radius: 15px;
+      white-space: break-spaces;
+    }
+
+    pre {
+      white-space: normal;
+    }
+  </style>
+
+  <!-- bootstrap js -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script> -->
+
+  <!-- highlight.js -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/styles/vs2015.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+
+  <!-- Autofill.js -->
+  <script id="js-autofill-script-src" src="../../dist/js/autofill.js"></script>
+  <script>autofill()</script>
+</head>
+
+<body class="o-bs">
+  <main class="container py-2 js-main">
+    <div class="row">
+      <!-- main content -->
+      <div class="col-lg-12 pe-5 py-2">
+        <h1 class="mb-3 text-center">Autofill.js</h1>
+        <hr>
+        <h2 class="text-center">Zero Config example</h2>
+        <pre>
+          <code class="js-snippet snippet language-html" data-snippet="main.html">
+          </code>
+        </pre>
+        <p>If an input has significant attributes such as <strong>type</strong>, <strong>name</strong> or
+          <strong>id</strong> (e.g. , date, fullname, lastname...), Autofill.js tries to find out the best
+          preset value for it. Otherwise it generates a random string.
+        </p>
+        <hr>
+        <div class="row mt-5">
+          <div class="col-md-12">
+            <h3 class="mb-3">Input types</h3>
+
+            <form>
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="fullname" class="col-form-label">text <span class="text-muted small">#fullname</span>
+                  </label>
+                </div>
+                <div class="col-md-10">
+                  <input name="fullname" type="text" class="form-control" id="fullname">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="search" class="col-form-label">search</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="search">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="url" class="col-form-label">url</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="url" class="form-control" id="url">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="email" class="col-form-label">email</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="email" class="form-control" id="email">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="password" class="col-form-label">password</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="password" class="form-control" id="password">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="tel" class="col-form-label">tel</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="tel" class="form-control" id="tel">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="birthdate" class="col-form-label">date <span class="text-muted small">#birthdate</span></label>
+                </div>
+                <div class="col-md-10">
+                  <input type="date" class="form-control" id="birthdate">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="datetime-local" class="col-form-label">datetime-local</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="datetime-local" class="form-control" id="datetime-local">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="month" class="col-form-label">month</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="month" class="form-control" id="month">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="week" class="col-form-label">week</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="week" class="form-control" id="week">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="time" class="col-form-label">time</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="time" class="form-control" id="time">
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="select" class="col-form-label">select one</label>
+                </div>
+                <div class="col-md-10">
+                  <select id="select" class="form-select">
+                    <option value="">-- Choose an option --</option>
+                    <option value="option1">1</option>
+                    <option value="option2">2</option>
+                    <option value="option3">3</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="select-multiple" class="col-form-label">select multiple</label>
+                </div>
+                <div class="col-md-10">
+                  <select id="select-multiple" name="select-multiple" class="form-select" multiple>
+                    <option value="">Choose many options</option>
+                    <option value="option1">option 1</option>
+                    <option value="option2">option 2</option>
+                    <option value="option3">option 3</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3 g-3 align-items-center">
+                <div class="col-md-2">
+                  <label for="datalist" class="col-form-label">datalist</label>
+                </div>
+                <div class="col-md-10">
+                  <input class="form-control" list="datalist-option" id="datalist">
+                  <datalist id="datalist-option">
+                    <option value="San Francisco">
+                    <option value="New York">
+                    <option value="Seattle">
+                    <option value="Los Angeles">
+                    <option value="Chicago">
+                  </datalist>
+                </div>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="checkbox">
+                <label class="form-check-label" for="checkbox">
+                  checkbox
+                </label>
+              </div>
+
+              <div class="mt-3">
+                <div class="form-check form-check-inline">
+                  <input name="checkbox-multiple[1]" class="form-check-input" type="checkbox" id="checkbox-multiple-1"
+                    value="option1">
+                  <label class="form-check-label" for="checkbox-multiple1">checkbox 1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input name="checkbox-multiple[2]" class="form-check-input" type="checkbox" id="checkbox-multiple-2"
+                    value="option2">
+                  <label class="form-check-label" for="checkbox-multiple-2">checkbox 2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input name="checkbox-multiple[3]" class="form-check-input" type="checkbox" id="checkbox-multiple-3"
+                    value="option3">
+                  <label class="form-check-label" for="checkbox-multiple-3">checkbox 3</label>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radio" id="radio-1" value="option1">
+                  <label class="form-check-label" for="radio-1">radio 1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radio" id="radio-2" value="option2">
+                  <label class="form-check-label" for="radio-2">radio 2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radio" id="radio-3" value="option3">
+                  <label class="form-check-label" for="radio-3">radio 3</label>
+                </div>
+              </div>
+
+              <div>
+                <div class="row mb-3 g-3 align-items-center">
+                  <div class="col-md-2">
+                    <label for="range" class="col-form-label">Range</label>
+                  </div>
+                  <div class="col-md-10">
+                    <input name="range" type="range" class="form-range" id="range">
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row mb-3 g-3 align-items-center">
+                  <div class="col-md-2">
+                    <label for="number" class="col-form-label">number <span class="text-muted small">#age</span></label>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="age" class="form-control" id="age">
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row mb-3 g-3 align-items-center">
+                  <div class="col-md-2">
+                    <label for="color" class="col-form-label">color</label>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="color" id="color">
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row mb-3 g-3 align-items-center">
+                  <div class="col-md-2">
+                    <label for="progress" class="col-form-label">progress</label>
+                  </div>
+                  <div class="col-md-10">
+                    <progress id="progress" max="100"></progress>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row mb-3 g-3 align-items-center">
+                  <div class="col-md-2">
+                    <label for="meter" class="col-form-label">meter</label>
+                  </div>
+                  <div class="col-md-10">
+                    <meter id="meter" min="0" max="100" low="33" high="66" optimum="80"></meter>
+                  </div>
+                </div>
+              </div>
+
+              <!-- file ? -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+      (async () => {
+        const highlight = (element, code) => {
+          element.textContent = code
+          window.hljs.highlightElement(element)
+        }
+
+        const getUrlContent = async (url) => {
+          const response = await fetch(url)
+          const content = await (response).text()
+
+          return content
+        }
+
+        const renderSnippets = async () => {
+          const snippets = document.querySelectorAll('.js-snippet')
+          const baseUrl = 'snippets'
+          for (const snippet of snippets) {
+            const dataSnippet = snippet.getAttribute('data-snippet')
+            if (dataSnippet) {
+
+              const snippetContent = await getUrlContent(`${baseUrl}/${dataSnippet}`)
+              highlight(snippet, snippetContent)
+            }
+          }
+        }
+        await renderSnippets()
+
+      })()
+  </script>
+</body>
+
+</html>

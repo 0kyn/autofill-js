@@ -1,0 +1,50 @@
+{
+  "config": {
+    "camelize": true,
+    "overlay": true
+  },
+  "forms": {
+    "form": {
+      "inputs": {
+        "title": "Mr.",
+        "name": "Doe",
+        "firstname": "John",
+        "age": "33",
+        "email": "john@doe.com",
+        "username": "jdoe",
+        "password": "J0hNDo3",
+        "password_confirmation": "J0hNDo3",
+        "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis ipsum eget lacus sagittis tempus...",
+        "select": "option1",
+        "select-multiple": [
+          2,
+          3
+        ],
+        "checkbox": false,
+        "checkboxMultiple": [
+          0,
+          2
+        ],
+        "radio": [true, false, true],
+        "range": 75
+      }
+    },
+
+    "#contact-form": {
+      "autosubmit": true,
+      "inputs": {
+        "email": "qwerty@dfg.com",
+        "password": "J0hNDo4 (because of data-autofill=\"password\")",
+        "message": "Sed volutpat lacus ac mi semper lobortis. Etiam nisl magna, scelerisque ac commodo a, imperdiet consequat arcu. ..."
+      }
+    },
+
+    "#random-form": {
+      "generate": true,
+      "inputs": {
+        "email": "{{ email }}",
+        "message": "{{ string|len:150 }}"
+      }
+    }
+  }
+}

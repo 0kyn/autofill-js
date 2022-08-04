@@ -1,0 +1,22 @@
+{
+  "env": {
+      "browser": true,
+      "es2021": true
+  },
+  "extends": [
+      "standard",
+      "plugin:unicorn/recommended"
+  ],
+  "ignorePatterns": ["dist/js/*.js", "docs/**/*.js"],
+  "rules": {
+    "newline-before-return": "error",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-array-for-each": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-for-loop": "off",
+    "unicorn/prefer-ternary": "off",
+    "unicorn/no-static-only-class": "off",
+    "unicorn/prefer-dom-node-dataset": "off"
+    // "no-debugger": "error"
+  }
+}

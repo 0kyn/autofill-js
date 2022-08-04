@@ -1,0 +1,79 @@
+$c-blue: #81aece;
+$c-white-80: rgb(255 255 255 / 80%);
+$c-dark: #212529;
+
+.autofill-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 35px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  background-color: $c-blue;
+  color: $c-dark;
+
+  &-brand {
+    margin-right: 1rem;
+  }
+
+  &-version {
+    color: $c-white-80;
+    font-size: 0.9rem;
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+
+    >button {
+      display: flex;
+      align-items: center;
+      border: 0;
+      background-color: transparent;
+    }
+  }
+
+  &-links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    >a {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .icon {
+    color: #fff;
+    transition: color 0.15s linear;
+
+    &:hover {
+      color: $c-dark;
+    }
+
+    &.icon-information-circle-outline {
+      height: 1.7rem;
+    }
+
+    &.icon-play-outline {
+      height: 1.7rem;
+    }
+
+    &.icon-reload-outline {
+      height: 1.5rem;
+      transform: scale(-1, 1) rotate(-10deg);
+    }
+
+    &.icon-npm {
+      height: 2.1rem;
+    }
+
+    &.icon-github {
+      height: 1.8rem;
+    }
+  }
+}
