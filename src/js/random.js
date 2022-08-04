@@ -43,7 +43,7 @@ export default class Random {
       }
     ],
     animal: ['Dog', 'Cat', 'Bird'],
-    color: ['Red', 'Green', 'Blue'],
+    colorString: ['Red', 'Green', 'Blue'],
     colorHex: ['#ff0000', '#00ff00', '#0000ff'],
     music: ['Classical', 'Electro', 'Blues'],
     vehicle: ['Car', 'Bicycle', 'Truck'],

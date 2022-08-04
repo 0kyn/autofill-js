@@ -486,7 +486,7 @@
       }
     ],
     animal: ["Dog", "Cat", "Bird"],
-    color: ["Red", "Green", "Blue"],
+    colorString: ["Red", "Green", "Blue"],
     colorHex: ["#ff0000", "#00ff00", "#0000ff"],
     music: ["Classical", "Electro", "Blues"],
     vehicle: ["Car", "Bicycle", "Truck"],
@@ -616,7 +616,7 @@
   var Autofill = class {
     autofillInfos = {
       author: "0kyn",
-      version: "1.0.4",
+      version: "1.0.5",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
