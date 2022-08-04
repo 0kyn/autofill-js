@@ -7,7 +7,7 @@ Autofill.js is a tiny JavaScript library that autofills forms inputs with specif
 If you already have a HTML form you just need to add the snippet below
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.0.4/dist/js/autofill.min.js"></script>
 <script>autofill()</script>
 ```
 
@@ -18,7 +18,7 @@ If you already have a HTML form you just need to add the snippet below
 1. Include script from jsDelivr CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.0.4/dist/js/autofill.min.js"></script>
 ```
 
 2. Get a simple HTML form
@@ -97,7 +97,7 @@ autofillConfig = {
 
 > If you want the overlay to render well, you'll need to import the CSS
 >```html
-><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js/dist/css/autofill.min.css">
+><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.0.4/dist/css/autofill.min.css">
 >```
 
 ## Examples
