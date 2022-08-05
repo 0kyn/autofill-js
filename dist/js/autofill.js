@@ -616,7 +616,7 @@
   var Autofill = class {
     autofillInfos = {
       author: "0kyn",
-      version: "1.0.6",
+      version: "1.1.0",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
@@ -634,6 +634,7 @@
       maxlength: false,
       minlength: false,
       overlay: false,
+      override: true,
       random: false,
       randomPreset: false,
       url: false
@@ -875,9 +876,11 @@
       return value;
     }
     handleDefaultInput(input, config) {
-      const value = this.getInputAfValue(input, config);
-      if (typeof value !== "undefined") {
-        input.value = value;
+      if (config.override || input.value.length === 0) {
+        const value = this.getInputAfValue(input, config);
+        if (typeof value !== "undefined") {
+          input.value = value;
+        }
       }
     }
     handleFileInput(input) {
@@ -891,6 +894,11 @@
     }
     handleCheckboxOrRadioGroups(group, config) {
       const input = group[0];
+      if (!config.override) {
+        const groupHasInputChecked = typeof group.find((input2) => input2.checked) !== "undefined";
+        if (groupHasInputChecked)
+          return;
+      }
       const values = asArray(this.getInputAfValue(input, config));
       values.forEach((value, vIndex) => {
         group.forEach((input2, index) => {
@@ -905,8 +913,13 @@
       });
     }
     handleSelect(input, config) {
-      const values = asArray(this.getInputAfValue(input, config));
       const options = input.querySelectorAll("option");
+      if (!config.override) {
+        const optionsHasSelected = typeof [...options].find((option) => option.selected) !== "undefined";
+        if (optionsHasSelected)
+          return;
+      }
+      const values = asArray(this.getInputAfValue(input, config));
       values.forEach((value) => {
         if (typeof value === "string") {
           input.value = value;
@@ -916,13 +929,15 @@
       });
     }
     handleDatalist(input, config) {
-      const value = this.getInputAfValue(input, config);
-      if (typeof value === "string") {
-        input.value = value;
-      } else if (typeof value === "number") {
-        const options = document.querySelectorAll(`datalist#${input.getAttribute("list")} option`);
-        if (options !== null) {
-          input.value = options[value].value;
+      if (config.override || input.value.length === 0) {
+        const value = this.getInputAfValue(input, config);
+        if (typeof value === "string") {
+          input.value = value;
+        } else if (typeof value === "number") {
+          const options = document.querySelectorAll(`datalist#${input.getAttribute("list")} option`);
+          if (options !== null) {
+            input.value = options[value].value;
+          }
         }
       }
     }
@@ -960,6 +975,8 @@
       let checkboxesGroup = [];
       for (let i = 0; i < inputs.length; i++) {
         const input = inputs[i];
+        if (input.type !== "checkbox")
+          continue;
         const attrValue = input.getAttribute("name");
         if (attrValue?.match(reg)) {
           const inputExists = itemExists(input, checkboxesGroup);

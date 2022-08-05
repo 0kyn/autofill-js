@@ -7,7 +7,7 @@ Autofill.js is a tiny JavaScript library that autofills forms inputs with specif
 If you already have a HTML form you just need to add the snippet below
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.0.6/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.0/dist/js/autofill.min.js"></script>
 <script>autofill()</script>
 ```
 
@@ -18,7 +18,7 @@ If you already have a HTML form you just need to add the snippet below
 1. Include script from jsDelivr CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.0.6/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.0/dist/js/autofill.min.js"></script>
 ```
 
 2. Get a simple HTML form
@@ -88,16 +88,17 @@ autofillConfig = {
   maxlength: false, // truncate if value length > maxlength attribute
   minlength: false, // fill with random char if value length < minlength attribute
   overlay: false, // display an overlay with config infos & reset/autofill buttons
+  override: true, // override already defined input value
   random: false, // if an input value is not defined it fills with a random value
   randomPreset: false, // if random === true && randomPreset === true then it tries to find a significant preset
   url: false // JSON config file url
 }
-
 ```
+> If you need to set specific value (e.g. old input error handling), you might switch `override` to `false`
 
-> If you want the overlay to render well, you'll need to import the CSS
+> When setting `overlay: true`, you'll have to import the CSS
 >```html
-><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.0.6/dist/css/autofill.min.css">
+><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.1.0/dist/css/autofill.min.css">
 >```
 
 ## Examples

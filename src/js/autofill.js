@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.0.6',
+    version: '1.1.0',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
@@ -24,6 +24,7 @@ export class Autofill {
     maxlength: false, // truncate if value length > maxlength attribute
     minlength: false, // fill with random char if value length < minlength attribute
     overlay: false, // display an overlay with config infos & reset/autofill buttons
+    override: true, // override already defined input value
     random: false, // if an input value is not defined it fills with a random value
     randomPreset: false, // if random === true && randomPreset === true then it tries to find a significant preset
     url: false // JSON config file url
@@ -321,10 +322,12 @@ export class Autofill {
   }
 
   handleDefaultInput (input, config) {
-    const value = this.getInputAfValue(input, config)
+    if (config.override || input.value.length === 0) {
+      const value = this.getInputAfValue(input, config)
 
-    if (typeof value !== 'undefined') {
-      input.value = value
+      if (typeof value !== 'undefined') {
+        input.value = value
+      }
     }
   }
 
@@ -342,6 +345,12 @@ export class Autofill {
 
   handleCheckboxOrRadioGroups (group, config) {
     const input = group[0]
+
+    if (!config.override) {
+      const groupHasInputChecked = typeof group.find(input => input.checked) !== 'undefined'
+
+      if (groupHasInputChecked) return
+    }
     const values = utils.asArray(this.getInputAfValue(input, config))
 
     values.forEach((value, vIndex) => {
@@ -358,8 +367,13 @@ export class Autofill {
   }
 
   handleSelect (input, config) {
-    const values = utils.asArray(this.getInputAfValue(input, config))
     const options = input.querySelectorAll('option')
+    if (!config.override) {
+      const optionsHasSelected = typeof [...options].find(option => option.selected) !== 'undefined'
+
+      if (optionsHasSelected) return
+    }
+    const values = utils.asArray(this.getInputAfValue(input, config))
 
     values.forEach((value) => {
       if (typeof value === 'string') {
@@ -371,13 +385,15 @@ export class Autofill {
   }
 
   handleDatalist (input, config) {
-    const value = this.getInputAfValue(input, config)
-    if (typeof value === 'string') {
-      input.value = value
-    } else if (typeof value === 'number') {
-      const options = document.querySelectorAll(`datalist#${input.getAttribute('list')} option`)
-      if (options !== null) {
-        input.value = options[value].value
+    if (config.override || input.value.length === 0) {
+      const value = this.getInputAfValue(input, config)
+      if (typeof value === 'string') {
+        input.value = value
+      } else if (typeof value === 'number') {
+        const options = document.querySelectorAll(`datalist#${input.getAttribute('list')} option`)
+        if (options !== null) {
+          input.value = options[value].value
+        }
       }
     }
   }
@@ -427,6 +443,7 @@ export class Autofill {
 
     for (let i = 0; i < inputs.length; i++) {
       const input = inputs[i]
+      if (input.type !== 'checkbox') continue
 
       const attrValue = input.getAttribute('name')
       if (attrValue?.match(reg)) {
