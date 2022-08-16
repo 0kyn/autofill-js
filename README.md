@@ -7,7 +7,7 @@ Autofill.js is a tiny JavaScript library that autofills forms inputs with specif
 If you already have a HTML form you just need to add the snippet below
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.1/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.2/dist/js/autofill.min.js"></script>
 <script>autofill()</script>
 ```
 
@@ -18,7 +18,7 @@ If you already have a HTML form you just need to add the snippet below
 1. Include script from jsDelivr CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.1/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.2/dist/js/autofill.min.js"></script>
 ```
 
 2. Get a simple HTML form
@@ -98,7 +98,7 @@ autofillConfig = {
 
 > When setting `overlay: true`, you'll have to import the CSS
 >```html
-><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.1.1/dist/css/autofill.min.css">
+><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.1.2/dist/css/autofill.min.css">
 >```
 
 ## Examples
@@ -139,11 +139,10 @@ autofill({
         email: 'john@doe.com',
         password: '{{ password|len:16 }}' // display raw text as generate === false for this specific form
       },
-
-      'form.formClasses': {
-        email: 'john@do3.com',
-        password: '{{ password|len:100 }}' // generates a password
-      },
+    },
+    'form.formClasses': {
+      email: 'john@do3.com',
+      password: '{{ password|len:100 }}' // generates a password
     }
   }
 })

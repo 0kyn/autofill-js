@@ -616,7 +616,7 @@
   var Autofill = class {
     autofillInfos = {
       author: "0kyn",
-      version: "1.1.1",
+      version: "1.1.2",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
