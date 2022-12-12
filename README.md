@@ -57,7 +57,7 @@ This should generates random or/and preset value for every form(s) inputs presen
 </script>
 ```
 
-You might also set specify arbitrary values
+You might also specify arbitrary values
 
 ```javascript
 autofill({
