@@ -377,7 +377,8 @@ export class Autofill {
 
     values.forEach((value) => {
       if (typeof value === 'string') {
-        input.value = value
+        const option = [...options].find(option => option.value === value)
+        if (typeof option !== 'undefined') { option.selected = true }
       } else if (typeof value === 'number') {
         options[value].selected = true
       }

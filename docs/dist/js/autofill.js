@@ -922,7 +922,10 @@
       const values = asArray(this.getInputAfValue(input, config));
       values.forEach((value) => {
         if (typeof value === "string") {
-          input.value = value;
+          const option = [...options].find((option2) => option2.value === value);
+          if (typeof option !== "undefined") {
+            option.selected = true;
+          }
         } else if (typeof value === "number") {
           options[value].selected = true;
         }
