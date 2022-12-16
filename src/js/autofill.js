@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.1.5',
+    version: '1.1.6',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
@@ -228,9 +228,13 @@ export class Autofill {
     let config = this.config
 
     if (this.hasFormsOptions()) {
+      if (typeof formSelector === 'undefined') {
+        return false
+      }
+
       config = this.getFormConfig(formSelector)
 
-      if (config.random || typeof formSelector === 'undefined') {
+      if (config.random) {
         this.randomInstance = new Random({ withPreset: config.randomPreset })
       }
     } else {
@@ -414,9 +418,10 @@ export class Autofill {
 
     for (let i = 0; i < formsSelectors.length; i++) {
       const formSelector = formsSelectors[i]
-      const formSelectored = document.querySelector(formSelector)
+      const formsSelectored = document.querySelectorAll(formSelector)
+      const formsSelectoredArr = Object.values(formsSelectored)
 
-      if (formSelectored === form) {
+      if (utils.itemExists(form, formsSelectoredArr)) {
         return formSelector
       }
     }
