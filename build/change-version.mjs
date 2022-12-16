@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fse from 'fs-extra'
 import rr from 'recursive-readdir'
 import path from 'node:path'

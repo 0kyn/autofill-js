@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { build } from 'esbuild'
 import { sassPlugin } from 'esbuild-sass-plugin'
 import fse from 'fs-extra'
