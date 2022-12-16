@@ -77,9 +77,16 @@ await (async () => {
           cursorsPos.forEach(cursorPos => {
             const start = cursorPos > 100 ? cursorPos - 50 : 0
             console.log('\u001B[33m', `${file}(${lineCount},${cursorPos + 1})`)
-            let fragments = ['\u001B[0m', line.slice(start, cursorPos).trim()]
-
-            fragments = [...fragments, '\u001B[101m', oldVersion, '\u001B[102m', newVersion, '\u001B[0m', '\n']
+            const fragments = [
+              '\u001B[0m', // reset
+              line.slice(start, cursorPos).trim(),
+              '\u001B[101m', // bright red
+              oldVersion,
+              '\u001B[102m', // bright green
+              newVersion,
+              '\u001B[0m', // reset
+              '\n'
+            ]
 
             console.log.apply(undefined, fragments)
           })
@@ -102,10 +109,20 @@ await (async () => {
 
       await Promise.all(filesToCheck.map(async (file) => await replaceVersion(file, oldVersion, newVersion)))
 
-      console.log('\u001B[34m', `${count} old version occurences found`, '\u001B[0m', '\n')
+      console.log(
+        '\u001B[34m', // blue
+        `${count} old version occurences found`,
+        '\u001B[0m', // reset
+        '\n'
+      )
 
       if (!DRY_RUN) {
-        console.log('\u001B[32m', `${count} old version occurences replaced`, '\u001B[0m', '\n')
+        console.log(
+          '\u001B[32m', // green
+          `${count} old version occurences replaced`,
+          '\u001B[0m', // reset
+          '\n'
+        )
         runNpmVersion(newVersion)
       }
     } catch (error) {
