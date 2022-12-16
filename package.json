@@ -14,8 +14,9 @@
     "lint:js:fix": "eslint --fix --ext .js .",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:fix": "npm run lint:fix:css && npm run lint:fix:js",
-    "dev": "cross-env NODE_ENV=development node ./build.mjs",
-    "prod": "cross-env NODE_ENV=production node ./build.mjs",
+    "dev": "cross-env NODE_ENV=development node ./build/build.mjs",
+    "prod": "cross-env NODE_ENV=production node ./build/build.mjs",
+    "release": "node ./build/change-version.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
