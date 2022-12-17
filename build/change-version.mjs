@@ -10,14 +10,18 @@ await (async () => {
   const DRY_RUN = process.argv.includes('--dry-run')
   const DIR_BASE = process.cwd()
   const DIRS_IGNORED = new Set(['build', 'node_modules', '.git'])
-  const FILETYPES_ALLOWED = new Set(['css', 'scss', 'map', 'js', 'html', 'md'])
+  const FILES_IGNORED = new Set([
+    'package.json', 'package-lock.json' // handled by npm version
+  ])
+  const FILETYPES_ALLOWED = new Set(['css', 'scss', 'map', 'js', 'html', 'md', 'json'])
   let count = 0
 
   const ignoreFunc = (file, stats) => {
     const fileBasename = path.basename(file)
     const condDirsIgnored = stats.isDirectory() && DIRS_IGNORED.has(fileBasename)
+    const condFilesIgnored = FILES_IGNORED.has(fileBasename)
 
-    return condDirsIgnored
+    return condDirsIgnored || condFilesIgnored
   }
 
   const multipleIndexOf = (string, oldVersion) => {
