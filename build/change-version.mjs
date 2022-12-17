@@ -42,18 +42,17 @@ await (async () => {
 
   const runNpmVersion = (version) => {
     const cmd = `npm version --commit-hooks false --git-tag-version false ${version}`
-    exec(cmd, (err, stdout, stderr) => {
-      if (err) {
-        console.log(`error: ${err.message}`)
 
-        return
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`)
-
-        return
-      }
-      console.log('\u001B[32m', `Successfully run npm version. Bumped to ${stdout}`)
+    return new Promise((resolve, reject) => {
+      exec(cmd, (err, stdout, stderr) => {
+        if (err) {
+          reject(err)
+        }
+        if (stderr) {
+          reject(stderr)
+        }
+        resolve(stdout.replace('v', '').trim())
+      })
     })
   }
 
@@ -103,7 +102,8 @@ await (async () => {
   }
 
   const main = async (args) => {
-    const [oldVersion, newVersion] = args
+    let [oldVersion, newVersion] = args
+    newVersion = await runNpmVersion(newVersion)
 
     try {
       const files = await rr(DIR_BASE, [ignoreFunc])
@@ -125,7 +125,10 @@ await (async () => {
           '\u001B[0m', // reset
           '\n'
         )
-        runNpmVersion(newVersion)
+
+        console.log('\u001B[32m', `Successfully run npm version. Bumped to v${newVersion}`)
+      } else {
+        await runNpmVersion(oldVersion)
       }
     } catch (error) {
       console.error(error)
