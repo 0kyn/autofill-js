@@ -16,7 +16,7 @@
     "lint:fix": "npm run lint:fix:css && npm run lint:fix:js",
     "dev": "cross-env NODE_ENV=development node ./build/build.mjs",
     "prod": "cross-env NODE_ENV=production node ./build/build.mjs",
-    "release": "node ./build/change-version.mjs",
+    "release-version": "node ./build/change-version.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
