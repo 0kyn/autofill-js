@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.1.7',
+    version: '1.1.8',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
@@ -418,11 +418,17 @@ export class Autofill {
 
     for (let i = 0; i < formsSelectors.length; i++) {
       const formSelector = formsSelectors[i]
-      const formsSelectored = document.querySelectorAll(formSelector)
-      const formsSelectoredArr = Object.values(formsSelectored)
+      const formSelectored = document.querySelector(formSelector)
+      if (form === formSelectored) return formSelector
+    }
 
-      if (utils.itemExists(form, formsSelectoredArr)) {
-        return formSelector
+    // @todo enhance specificity handling
+    for (let i = 0; i < formsSelectors.length; i++) {
+      const formSelector = formsSelectors[i]
+      const formsSelectored = document.querySelectorAll(formSelector)
+      for (let j = 0; j < formsSelectored.length; j++) {
+        const formSelectored = formsSelectored[j]
+        if (form === formSelectored) return formSelector
       }
     }
   }

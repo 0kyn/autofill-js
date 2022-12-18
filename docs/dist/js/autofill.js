@@ -616,7 +616,7 @@
   var Autofill = class {
     autofillInfos = {
       author: "0kyn",
-      version: "1.1.7",
+      version: "1.1.8",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
@@ -958,10 +958,17 @@
       const formsSelectors = this.config.formsSelectors;
       for (let i = 0; i < formsSelectors.length; i++) {
         const formSelector = formsSelectors[i];
-        const formsSelectored = document.querySelectorAll(formSelector);
-        const formsSelectoredArr = Object.values(formsSelectored);
-        if (itemExists(form, formsSelectoredArr)) {
+        const formSelectored = document.querySelector(formSelector);
+        if (form === formSelectored)
           return formSelector;
+      }
+      for (let i = 0; i < formsSelectors.length; i++) {
+        const formSelector = formsSelectors[i];
+        const formsSelectored = document.querySelectorAll(formSelector);
+        for (let j = 0; j < formsSelectored.length; j++) {
+          const formSelectored = formsSelectored[j];
+          if (form === formSelectored)
+            return formSelector;
         }
       }
     }
