@@ -7,7 +7,7 @@ Autofill.js is a tiny JavaScript library that autofills forms inputs with specif
 If you already have a HTML form you just need to add the snippet below
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.8/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.2.0/dist/js/autofill.min.js"></script>
 <script>autofill()</script>
 ```
 
@@ -18,7 +18,7 @@ If you already have a HTML form you just need to add the snippet below
 1. Include script from jsDelivr CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.1.8/dist/js/autofill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autofill-js@1.2.0/dist/js/autofill.min.js"></script>
 ```
 
 2. Get a simple HTML form
@@ -77,8 +77,9 @@ Below the default Autofill.js config
 ```javascript
 autofillConfig = {
   autofill: true, // enable autofill
-  autosubmit: false, // emit submit event after form's inputs filling
+  autosubmit: false, // emit submit event after form's inputs filled
   camelize: false, // e.g. allow input property 'inputName' to handle 'input-name' or 'input_name'
+  events: [], // trigger input events after value set
   generate: false, // generate random value where an input's value is formatted as follow {{ password|len:16 }}
   inputAttributes: ['data-autofill', 'name', 'id', 'class'], // input key attributes targets ordered from the highest priority to the lowest
   inputAttributesSkip: [], // skip autofilling when input has specific attribute. e.g. 'disabled' or 'readonly',
@@ -94,11 +95,12 @@ autofillConfig = {
   url: false // JSON config file url
 }
 ```
+
 > If you need to set specific value (e.g. old input error handling), you might switch `override` to `false`
 
 > When setting `overlay: true`, you'll have to import the CSS
 >```html
-><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.1.8/dist/css/autofill.min.css">
+><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/autofill-js@1.2.0/dist/css/autofill.min.css">
 >```
 
 ## Examples
@@ -144,6 +146,24 @@ autofill({
       email: 'john@do3.com',
       password: '{{ password|len:100 }}' // generates a password
     }
+  }
+})
+
+```
+
+- Events dispatch
+
+```js
+autofill({
+  events: ['change', 'input'],
+  // dispatch events once input value set
+  inputs: {
+    username: 'jdoe', // trigger 'change' & 'input'
+    email: {
+      events: ['click'],
+      value: 'john@doe.com' // trigger only 'click'
+    },
+    password: 'S3cUrEd', // trigger 'change' & 'input'
   }
 })
 

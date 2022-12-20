@@ -616,7 +616,7 @@
   var Autofill = class {
     autofillInfos = {
       author: "0kyn",
-      version: "1.1.8",
+      version: "1.2.0",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
@@ -625,6 +625,7 @@
       autofill: true,
       autosubmit: false,
       camelize: false,
+      events: [],
       generate: false,
       inputAttributes: ["data-autofill", "name", "id", "class"],
       inputAttributesSkip: [],
@@ -826,8 +827,16 @@
         this.submit(form);
       }
     }
+    getAfConfigByInput(input, config) {
+      const afKey = this.getAfKey(input, config);
+      const afInputConfig = this.forms[config.formSelector].inputs[afKey];
+      return afInputConfig;
+    }
     getAfValue(afKey, config) {
-      return this.forms[config.formSelector].inputs[afKey];
+      const afInput = this.forms[config.formSelector].inputs[afKey];
+      if (typeof afInput === "object" && hasProp("value", afInput))
+        return afInput.value;
+      return afInput;
     }
     getAfKey(input, config) {
       for (let i = 0; i < this.config.inputAttributes.length; i++) {
@@ -882,7 +891,7 @@
       if (config.override || input.value.length === 0) {
         const value = this.getInputAfValue(input, config);
         if (typeof value !== "undefined") {
-          input.value = value;
+          this.setInputProp(input, { key: "value", value }, config);
         }
       }
     }
@@ -906,11 +915,11 @@
       values.forEach((value, vIndex) => {
         group.forEach((input2, index) => {
           if (typeof value === "string" && input2.value === value) {
-            input2.checked = true;
+            this.setInputProp(input2, { key: "checked", value: true }, config);
           } else if (typeof value === "number" && index === value) {
-            input2.checked = true;
+            this.setInputProp(input2, { key: "checked", value: true }, config);
           } else if (typeof value === "boolean" && index === vIndex) {
-            input2.checked = value;
+            this.setInputProp(input2, { key: "checked", value }, config);
           }
         });
       });
@@ -925,24 +934,25 @@
       const values = asArray(this.getInputAfValue(input, config));
       values.forEach((value) => {
         if (typeof value === "string") {
-          const option = [...options].find((option2) => option2.value === value);
+          const option = [...options].find((option2) => this.setInputProp(option2, { key: "selected", value: option2.value }));
           if (typeof option !== "undefined") {
-            option.selected = true;
+            this.setInputProp(option, { key: "selected", value: true });
           }
         } else if (typeof value === "number") {
-          options[value].selected = true;
+          this.setInputProp(options[value], { key: "selected", value: true });
         }
       });
+      this.dispatchInputEvents(input, config);
     }
     handleDatalist(input, config) {
       if (config.override || input.value.length === 0) {
         const value = this.getInputAfValue(input, config);
         if (typeof value === "string") {
-          input.value = value;
+          this.setInputProp(input, { key: "value", value }, config);
         } else if (typeof value === "number") {
           const options = document.querySelectorAll(`datalist#${input.getAttribute("list")} option`);
           if (options !== null) {
-            input.value = options[value].value;
+            this.setInputProp(input, { key: "value", value: options[value].value }, config);
           }
         }
       }
@@ -1045,14 +1055,25 @@
         return cond;
       });
     }
+    dispatchInputEvents(input, config) {
+      const inputEvents = this.getAfConfigByInput(input, config)?.events ?? [];
+      const events = inputEvents.length > 0 ? inputEvents : config.events;
+      events.forEach((event) => input.dispatchEvent(new Event(event)));
+    }
+    setInputProp(input, { key, value }, config) {
+      input[key] = value;
+      if (typeof config !== "undefined") {
+        this.dispatchInputEvents(input, config);
+      }
+    }
   };
   var autofill = (formsSelectors, options) => {
     return new Promise((resolve) => {
       const af = new Autofill(formsSelectors, options);
-      if (document.readyState !== "loading") {
+      if (document.readyState === "complete") {
         resolve(af.init());
       } else {
-        document.addEventListener("DOMContentLoaded", () => {
+        window.addEventListener("load", () => {
           resolve(af.init());
         });
       }

@@ -1,6 +1,6 @@
 {
   "name": "autofill-js",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "Autofill form inputs during development and test",
   "main": "./dist/js/autofill.js",
   "files": [
