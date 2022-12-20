@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.2.0',
+    version: '1.2.1',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
@@ -264,10 +264,12 @@ export class Autofill {
   }
 
   getAfConfigByInput (input, config) {
-    const afKey = this.getAfKey(input, config)
-    const afInputConfig = this.forms[config.formSelector].inputs[afKey]
+    if (this.hasFormsOptions() && this.hasFormAndInputs(config)) {
+      const afKey = this.getAfKey(input, config)
+      if (typeof afKey !== 'undefined') return this.forms[config.formSelector].inputs[afKey]
+    }
 
-    return afInputConfig
+    return []
   }
 
   getAfValue (afKey, config) {
