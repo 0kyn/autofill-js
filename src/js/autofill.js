@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.2.1',
+    version: '1.2.2',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
@@ -207,7 +207,7 @@ export class Autofill {
 
   submit (form, timeout = 1000) {
     setTimeout(() => {
-      const event = new CustomEvent('submit')
+      const event = new CustomEvent('submit', { cancelable: true })
       form.dispatchEvent(event)
     }, timeout)
   }
@@ -546,7 +546,7 @@ export class Autofill {
     const inputEvents = this.getAfConfigByInput(input, config)?.events ?? []
     const events = inputEvents.length > 0 ? inputEvents : config.events
 
-    events.forEach(event => input.dispatchEvent(new Event(event)))
+    events.forEach(event => input.dispatchEvent(new Event(event, { cancelable: true })))
   }
 
   setInputProp (input, { key, value }, config) {
