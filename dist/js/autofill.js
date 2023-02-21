@@ -616,7 +616,7 @@
   var Autofill = class {
     autofillInfos = {
       author: "0kyn",
-      version: "1.2.2",
+      version: "1.2.3",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
@@ -937,7 +937,7 @@
       const values = asArray(this.getInputAfValue(input, config));
       values.forEach((value) => {
         if (typeof value === "string") {
-          const option = [...options].find((option2) => this.setInputProp(option2, { key: "selected", value: option2.value }));
+          const option = [...options].find((option2) => option2.value === value);
           if (typeof option !== "undefined") {
             this.setInputProp(option, { key: "selected", value: true });
           }

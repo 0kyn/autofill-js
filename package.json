@@ -1,6 +1,6 @@
 {
   "name": "autofill-js",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Autofill form inputs during development and test",
   "main": "./dist/js/autofill.js",
   "files": [
@@ -16,7 +16,7 @@
     "lint:fix": "npm run lint:fix:css && npm run lint:fix:js",
     "dev": "cross-env NODE_ENV=development node ./build/build.mjs",
     "prod": "cross-env NODE_ENV=production node ./build/build.mjs",
-    "release-version": "node ./build/change-version.mjs",
+    "change-version": "node ./build/change-version.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

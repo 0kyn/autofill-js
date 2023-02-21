@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.2.2',
+    version: '1.2.3',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
@@ -391,10 +391,9 @@ export class Autofill {
       if (optionsHasSelected) return
     }
     const values = utils.asArray(this.getInputAfValue(input, config))
-
     values.forEach((value) => {
       if (typeof value === 'string') {
-        const option = [...options].find(option => this.setInputProp(option, { key: 'selected', value: option.value }))
+        const option = [...options].find(option => option.value === value)
         if (typeof option !== 'undefined') {
           this.setInputProp(option, { key: 'selected', value: true })
         }
