@@ -5,7 +5,7 @@ import Overlay from './overlay.js'
 export class Autofill {
   autofillInfos = {
     author: '0kyn',
-    version: '1.2.3',
+    version: '1.2.4',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js'
