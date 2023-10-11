@@ -51,7 +51,7 @@
     "postcss-scss": "^4.0.4",
     "recursive-readdir": "^2.2.2",
     "stylelint": "^14.9.1",
-    "stylelint-config-idiomatic-order": "^8.1.0",
+    "stylelint-config-idiomatic-order": "^9.0.0",
     "stylelint-config-standard-scss": "^4.0.0"
   }
 }
