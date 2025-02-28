@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readme</title>
+  <script src="dist/js/autofill.js"></script>
+  <!-- <script>autofill()</script> -->
+</head>
+<body>
+  <form>
+    <input type="text" name="username">
+    <input type="email" name="email">
+    <input type="password" name="password">
+
+    <select name="selectMultiple" multiple>
+      <option value="">Choose locations</option>
+      <option value="UKNW">Unknown</option>
+      <option value="OCN">Ocean</option>
+      <option value="MTN">Mountain</option>
+      <option value="PLCE">Place</option>
+    </select>
+
+    <input type="checkbox" name="checkboxes[opt1]" value="option1">
+    <input type="checkbox" name="checkboxes[opt2]" value="option2">
+    <input type="checkbox" name="checkboxes[opt3]" value="option3">
+  </form>
+
+  <form id="formId">
+    <input type="email" name="email">
+    <input type="password" name="password">
+  </form>
+
+  <form class="formClasses">
+    <input type="email" name="email">
+    <input type="password" name="password">
+  </form>
+
+  <script>
+    document.querySelector('form:first-of-type').addEventListener('submit', () => {
+      console.log('Form form:first-of-type submitted')
+    })
+    document.querySelector('form#formId').addEventListener('submit', () => {
+      console.log('Form form#formId submitted')
+    })
+    document.querySelector('form.formClasses').addEventListener('submit', () => {
+      console.log('Form form#formId submitted')
+    })
+
+    document.querySelector('form input[name="username"]').addEventListener('change', event => {
+      console.log(`Event triggered: change on ${event.currentTarget.name}`)
+    })
+    // should not be triggered
+    document.querySelector('form input[name="email"]').addEventListener('change', event => {
+      console.log(`Event triggered: change on ${event.currentTarget.name}`)
+    })
+    document.querySelector('form input[name="email"]').addEventListener('click', event => {
+      console.log(`Event triggered: click on ${event.currentTarget.name}`)
+    })
+    document.querySelector('form input[name="password"]').addEventListener('change', event => {
+      console.log(`Event triggered: change on ${event.currentTarget.name}`)
+    })
+  </script>
+</body>
+</html>
+

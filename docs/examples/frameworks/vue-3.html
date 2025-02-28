@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3 Form with Multiple Input Types</title>
+
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f3f4f6;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .color-preview {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+    <script src="../../dist/js/autofill.js"></script>
+    <script>autofill()</script>
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <div class="card shadow p-4 mx-auto" style="max-width: 600px; margin-top: 20px;">
+                <h2 class="mb-4 text-center">{{ submitted ? 'Form Submitted Successfully!' : 'Registration Form' }}</h2>
+
+                <!-- Success Message -->
+                <div class="alert alert-success" v-if="submitted">
+                    <p>Thank you for your submission, {{ formData.fullName }}!</p>
+                    <button
+                        @click="resetForm"
+                        class="btn btn-success mt-3">
+                        Submit Another Form
+                    </button>
+                </div>
+
+                <!-- The Form -->
+                <form v-if="!submitted" @submit.prevent="submitForm">
+
+                    <!-- Text Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.fullName }"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="John Doe"
+                                    v-model="formData.fullName">
+                                <div class="invalid-feedback" v-if="errors.fullName">
+                                    {{ errors.fullName }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="email" class="form-label">Email</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.email }"
+                                    id="email"
+                                    name="email"
+                                    placeholder="john@example.com"
+                                    v-model="formData.email">
+                                <div class="invalid-feedback" v-if="errors.email">
+                                    {{ errors.email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="password" class="form-label">Password</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.password }"
+                                    id="password"
+                                    name="password"
+                                    v-model="formData.password">
+                                <div class="invalid-feedback" v-if="errors.password">
+                                    {{ errors.password }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Number Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="age" class="form-label">Age</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': errors.age }"
+                                    id="age"
+                                    name="age"
+                                    placeholder="25"
+                                    v-model="formData.age">
+                                <div class="invalid-feedback" v-if="errors.age">
+                                    {{ errors.age }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="birthdate" class="form-label">Birth Date</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="birthdate"
+                                    name="birthdate"
+                                    v-model="formData.birthdate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Radio Buttons -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label class="form-label">Gender</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="d-flex gap-3">
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="male"
+                                            value="male"
+                                            v-model="formData.gender">
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="female"
+                                            value="female"
+                                            v-model="formData.gender">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="other"
+                                            value="other"
+                                            v-model="formData.gender">
+                                        <label class="form-check-label" for="other">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <!-- Empty label for alignment -->
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        id="subscribe"
+                                        name="subscribe"
+                                        v-model="formData.subscribe">
+                                    <label class="form-check-label" for="subscribe">
+                                        Subscribe to newsletter
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Checkboxes -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label class="form-label">Interests</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6" v-for="interest in interests" :key="interest.value">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                :id="interest.value"
+                                                :value="interest.value"
+                                                v-model="formData.interests">
+                                            <label class="form-check-label" :for="interest.value">
+                                                {{ interest.label }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="bio" class="form-label">Bio</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea
+                                    class="form-control"
+                                    id="bio"
+                                    name="bio"
+                                    rows="3"
+                                    placeholder="Tell us about yourself..."
+                                    v-model="formData.bio"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Select Dropdown -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="experience" class="form-label">Experience Level</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select
+                                    class="form-select"
+                                    id="experience"
+                                    name="experience"
+                                    v-model="formData.experience">
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                    <option value="expert">Expert</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="profileImage" class="form-label">Profile Image</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="profileImage"
+                                    name="profileImage"
+                                    accept="image/*"
+                                    @change="handleFileSelect">
+                                <small class="text-muted" v-if="formData.profileImage">
+                                    Selected file: {{ formData.profileImage.name }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color Picker -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="favoriteColor" class="form-label">Favorite Color</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="color"
+                                    id="favoriteColor"
+                                    name="favoriteColor"
+                                    v-model="formData.favoriteColor">
+                                <span class="ms-2">{{ formData.favoriteColor }}</span>
+                                <div class="color-preview" :style="{ backgroundColor: formData.favoriteColor }"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid mt-4">
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, reactive } = Vue;
+
+        createApp({
+            setup() {
+                // Initialize form data using reactive for nested objects
+                const formData = reactive({
+                    fullName: '',
+                    email: '',
+                    password: '',
+                    age: '',
+                    birthdate: '',
+                    gender: '',
+                    subscribe: false,
+                    interests: [],
+                    bio: '',
+                    experience: 'beginner',
+                    profileImage: null,
+                    favoriteColor: '#3366ff'
+                });
+
+                // Available interests
+                const interests = [
+                    { value: 'sports', label: 'Sports' },
+                    { value: 'music', label: 'Music' },
+                    { value: 'reading', label: 'Reading' },
+                    { value: 'cooking', label: 'Cooking' },
+                    { value: 'travel', label: 'Travel' }
+                ];
+
+                // Validation errors
+                const errors = reactive({});
+
+                // Track submission state
+                const submitted = ref(false);
+
+                // Handle file selection
+                const handleFileSelect = (event) => {
+                    formData.profileImage = event.target.files[0];
+                };
+
+                // Validate form
+                const validateForm = () => {
+                    // Clear previous errors
+                    Object.keys(errors).forEach(key => delete errors[key]);
+
+                    let isValid = true;
+
+                    // Validate full name
+                    if (!formData.fullName.trim()) {
+                        errors.fullName = 'Full name is required';
+                        isValid = false;
+                    }
+
+                    // Validate email
+                    if (!formData.email.trim()) {
+                        errors.email = 'Email is required';
+                        isValid = false;
+                    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+                        errors.email = 'Email is invalid';
+                        isValid = false;
+                    }
+
+                    // Validate password
+                    if (!formData.password.trim()) {
+                        errors.password = 'Password is required';
+                        isValid = false;
+                    } else if (formData.password.length < 6) {
+                        errors.password = 'Password must be at least 6 characters';
+                        isValid = false;
+                    }
+
+                    // Validate age
+                    if (formData.age && (isNaN(formData.age) || parseInt(formData.age) < 18)) {
+                        errors.age = 'Age must be at least 18';
+                        isValid = false;
+                    }
+
+                    return isValid;
+                };
+
+                // Handle form submission
+                const submitForm = () => {
+                    if (validateForm()) {
+                        console.log('Form submitted:', formData);
+                        submitted.value = true;
+                    }
+                };
+
+                // Reset form
+                const resetForm = () => {
+                    // Reset all form values
+                    Object.assign(formData, {
+                        fullName: '',
+                        email: '',
+                        password: '',
+                        age: '',
+                        birthdate: '',
+                        gender: '',
+                        subscribe: false,
+                        interests: [],
+                        bio: '',
+                        experience: 'beginner',
+                        profileImage: null,
+                        favoriteColor: '#3366ff'
+                    });
+
+                    // Clear all errors
+                    Object.keys(errors).forEach(key => delete errors[key]);
+
+                    // Reset submission state
+                    submitted.value = false;
+                };
+
+                return {
+                    formData,
+                    interests,
+                    errors,
+                    submitted,
+                    handleFileSelect,
+                    submitForm,
+                    resetForm
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

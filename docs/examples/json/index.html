@@ -31,10 +31,10 @@
   <script>hljs.highlightAll();</script>
 
   <!-- needed css for Autofill.js overlay -->
-  <link id="js-autofill-css-link" rel="stylesheet" href="../../dist/css/autofill.css">
+  <!-- <link rel="stylesheet" href="../../dist/css/autofill.css"> -->
 
   <!-- Autofill.js -->
-  <script id="js-autofill-script-src" src="../../dist/js/autofill.js"></script>
+  <script src="../../dist/js/autofill.js"></script>
 
 
   <script>
@@ -59,16 +59,7 @@
         <h1 class="mb-3 text-center">Autofill.js</h1>
         <hr>
         <h2 class="text-center">JSON Config example</h2>
-        <pre><code class="language-javascript">autofill({
-  url: 'http://127.0.0.1:5500/autofill.json',
-  forms: {
-    form: {
-      inputs: {
-        firstname: 'JohnOverridden'
-      }
-    }
-  }
-})</code></pre>
+        <pre><code class="js-snippet language-javascript" data-snippet="json.js"></code></pre>
         <hr>
         <div class="row mt-5">
           <div class="col-md-6">
@@ -289,9 +280,9 @@
 
         handleAutosubmit()
         await renderJsonConf('autofill.json', document.querySelector('.js-json-conf'))
-
       })()
   </script>
+  <script src="/examples/snippet.js"></script>
 </body>
 
 </html>

@@ -1,2 +1,16 @@
+.vscode
 ._*
 node_modules
+.DS_Store
+
+# Jest
+/jest-coverage/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Examples
+docs/examples/**/.angular

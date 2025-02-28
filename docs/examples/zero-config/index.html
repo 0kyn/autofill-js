@@ -36,7 +36,7 @@
 
 
   <!-- Autofill.js -->
-  <script id="js-autofill-script-src" src="../../dist/js/autofill.js"></script>
+  <script src="../../dist/js/autofill.js"></script>
   <script>autofill()</script>
 </head>
 
@@ -53,8 +53,8 @@
           </code>
         </pre>
         <p>If an input has significant attributes such as <strong>type</strong>, <strong>name</strong> or
-          <strong>id</strong> (e.g. , date, fullname, lastname...), Autofill.js tries to find out the best
-          preset value for it. Otherwise it generates a random value.
+          <strong>id</strong> (e.g. url, date, fullname, lastname...), Autofill.js tries to find out the best
+          preset value. Otherwise it generates a random value.
         </p>
         <hr>
         <div class="row mt-5">
@@ -301,7 +301,16 @@
                 </div>
               </div>
 
-              <!-- file ? -->
+              <div>
+                <div class="row mb-3 g-3 align-items-center">
+                  <div class="col-md-2">
+                    <label for="file" class="col-form-label">file</label>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="file" id="file" name="file">
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -310,35 +319,11 @@
   </main>
 
   <script>
-      (async () => {
-        const highlight = (element, code) => {
-          element.textContent = code
-          window.hljs.highlightElement(element)
-        }
-
-        const getUrlContent = async (url) => {
-          const response = await fetch(url)
-          const content = await (response).text()
-
-          return content
-        }
-
-        const renderSnippets = async () => {
-          const snippets = document.querySelectorAll('.js-snippet')
-          const baseUrl = 'snippets'
-          for (const snippet of snippets) {
-            const dataSnippet = snippet.getAttribute('data-snippet')
-            if (dataSnippet) {
-
-              const snippetContent = await getUrlContent(`${baseUrl}/${dataSnippet}`)
-              highlight(snippet, snippetContent)
-            }
-          }
-        }
-        await renderSnippets()
-
-      })()
+    document.querySelector('#file').addEventListener('change', e => {
+      console.log(`Event triggered: change on #${e.currentTarget.id}`)
+    })
   </script>
+  <script src="/examples/snippet.js"></script>
 </body>
 
 </html>

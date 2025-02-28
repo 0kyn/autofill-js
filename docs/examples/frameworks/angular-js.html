@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="formApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Form with Multiple Input Types</title>
+
+    <!-- AngularJS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f3f4f6;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .error-text {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .color-preview {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+    <script src="../../dist/js/autofill.js"></script>
+    <script>autofill()</script>
+</head>
+<body>
+    <div class="container">
+        <div ng-controller="FormController">
+            <div class="card shadow p-4 mx-auto" style="max-width: 600px; margin-top: 20px;">
+                <h2 class="mb-4 text-center">{{ submitted ? 'Form Submitted Successfully!' : 'Registration Form' }}</h2>
+
+                <!-- Success Message -->
+                <div class="alert alert-success" ng-if="submitted">
+                    <p>Thank you for your submission, {{ formData.fullName }}!</p>
+                    <button
+                        ng-click="resetForm()"
+                        class="btn btn-success mt-3">
+                        Submit Another Form
+                    </button>
+                </div>
+
+                <!-- The Form -->
+                <form name="registrationForm" ng-if="!submitted" ng-submit="submitForm()" novalidate>
+
+                    <!-- Text Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="John Doe"
+                                    ng-model="formData.fullName"
+                                    ng-class="{'is-invalid': submitted && registrationForm.fullName.$invalid}"
+                                    required>
+                                <div class="invalid-feedback" ng-show="submitted && registrationForm.fullName.$error.required">
+                                    Full name is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="email" class="form-label">Email</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="john@example.com"
+                                    ng-model="formData.email"
+                                    ng-class="{'is-invalid': submitted && registrationForm.email.$invalid}"
+                                    required>
+                                <div class="invalid-feedback" ng-show="submitted && registrationForm.email.$error.required">
+                                    Email is required
+                                </div>
+                                <div class="invalid-feedback" ng-show="submitted && registrationForm.email.$error.email">
+                                    Please enter a valid email
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="password" class="form-label">Password</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    ng-model="formData.password"
+                                    ng-class="{'is-invalid': submitted && registrationForm.password.$invalid}"
+                                    ng-minlength="6"
+                                    required>
+                                <div class="invalid-feedback" ng-show="submitted && registrationForm.password.$error.required">
+                                    Password is required
+                                </div>
+                                <div class="invalid-feedback" ng-show="submitted && registrationForm.password.$error.minlength">
+                                    Password must be at least 6 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Number Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="age" class="form-label">Age</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="age"
+                                    name="age"
+                                    placeholder="25"
+                                    ng-model="formData.age"
+                                    ng-class="{'is-invalid': submitted && registrationForm.age.$invalid}"
+                                    min="18">
+                                <div class="invalid-feedback" ng-show="submitted && registrationForm.age.$error.min">
+                                    Age must be at least 18
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="birthdate" class="form-label">Birth Date</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="birthdate"
+                                    name="birthdate"
+                                    ng-model="formData.birthdate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Radio Buttons -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label class="form-label">Gender</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="d-flex gap-3">
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="male"
+                                            value="male"
+                                            ng-model="formData.gender">
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="female"
+                                            value="female"
+                                            ng-model="formData.gender">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="gender"
+                                            id="other"
+                                            value="other"
+                                            ng-model="formData.gender">
+                                        <label class="form-check-label" for="other">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <!-- Empty label for alignment -->
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        id="subscribe"
+                                        name="subscribe"
+                                        ng-model="formData.subscribe">
+                                    <label class="form-check-label" for="subscribe">
+                                        Subscribe to newsletter
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Checkboxes -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label class="form-label">Interests</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6" ng-repeat="interest in interests">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="{{ interest.value }}"
+                                                ng-model="formData.selectedInterests[interest.value]">
+                                            <label class="form-check-label" for="{{ interest.value }}">
+                                                {{ interest.label }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="bio" class="form-label">Bio</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea
+                                    class="form-control"
+                                    id="bio"
+                                    name="bio"
+                                    rows="3"
+                                    placeholder="Tell us about yourself..."
+                                    ng-model="formData.bio"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Select Dropdown -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="experience" class="form-label">Experience Level</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select
+                                    class="form-select"
+                                    id="experience"
+                                    name="experience"
+                                    ng-model="formData.experience">
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                    <option value="expert">Expert</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Input -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="profileImage" class="form-label">Profile Image</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="file"
+                                    class="form-control"
+                                    id="profileImage"
+                                    name="profileImage"
+                                    accept="image/*"
+                                    onchange="angular.element(this).scope().handleFileSelect(this)">
+                                <small class="text-muted" ng-if="formData.profileImage">
+                                    Selected file: {{ formData.profileImage.name }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color Picker -->
+                    <div class="mb-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-3">
+                                <label for="favoriteColor" class="form-label">Favorite Color</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input
+                                    type="color"
+                                    id="favoriteColor"
+                                    name="favoriteColor"
+                                    ng-model="formData.favoriteColor">
+                                <span class="ms-2">{{ formData.favoriteColor }}</span>
+                                <div class="color-preview" style="background-color: {{ formData.favoriteColor }};"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid mt-4">
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create Angular application
+        var app = angular.module('formApp', []);
+
+        // Create controller
+        app.controller('FormController', function($scope) {
+            // Initialize form data
+            $scope.formData = {
+                fullName: '',
+                email: '',
+                password: '',
+                age: '',
+                birthdate: '',
+                gender: '',
+                subscribe: false,
+                selectedInterests: {},
+                bio: '',
+                experience: 'beginner',
+                profileImage: null,
+                favoriteColor: '#3366ff'
+            };
+
+            // Available interests
+            $scope.interests = [
+                { value: 'sports', label: 'Sports' },
+                { value: 'music', label: 'Music' },
+                { value: 'reading', label: 'Reading' },
+                { value: 'cooking', label: 'Cooking' },
+                { value: 'travel', label: 'Travel' }
+            ];
+
+            // Track submission state
+            $scope.submitted = false;
+
+            // Handle file selection
+            $scope.handleFileSelect = function(fileInput) {
+                $scope.$apply(function() {
+                    $scope.formData.profileImage = fileInput.files[0];
+                });
+            };
+
+            // Handle form submission
+            $scope.submitForm = function() {
+                // Mark form as submitted
+                $scope.submitted = true;
+
+                // If form is valid, process submission
+                if ($scope.$eval('registrationForm.$valid')) {
+                    console.log('Form submitted:', $scope.formData);
+
+                    // Format interests for display
+                    var selectedInterests = [];
+                    angular.forEach($scope.formData.selectedInterests, function(selected, interest) {
+                        if (selected) {
+                            selectedInterests.push(interest);
+                        }
+                    });
+
+                    // Display success message
+                    $scope.formData.interests = selectedInterests;
+                    $scope.submitted = true;
+                }
+            };
+
+            // Reset form
+            $scope.resetForm = function() {
+                $scope.formData = {
+                    fullName: '',
+                    email: '',
+                    password: '',
+                    age: '',
+                    birthdate: '',
+                    gender: '',
+                    subscribe: false,
+                    selectedInterests: {},
+                    bio: '',
+                    experience: 'beginner',
+                    profileImage: null,
+                    favoriteColor: '#3366ff'
+                };
+                $scope.submitted = false;
+                $scope.registrationForm.$setPristine();
+                $scope.registrationForm.$setUntouched();
+            };
+        });
+    </script>
+</body>
+</html>
