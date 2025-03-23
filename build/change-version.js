@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-undef */
 
 import fse from 'fs-extra'
 import rr from 'recursive-readdir'
@@ -6,14 +7,14 @@ import path from 'node:path'
 import readline from 'node:readline'
 import { exec } from 'node:child_process'
 
-await (async () => {
+await (async() => {
   const DRY_RUN = process.argv.includes('--dry-run')
   const DIR_BASE = process.cwd()
   const DIRS_IGNORED = new Set(['build', 'node_modules', '.git'])
   const FILES_IGNORED = new Set([
     'package.json', 'package-lock.json' // handled by npm version
   ])
-  const FILETYPES_ALLOWED = new Set(['css', 'scss', 'map', 'js', 'html', 'md', 'json'])
+  const FILETYPES_ALLOWED = new Set(['css', 'scss', 'ts', 'html', 'md', 'json'])
   let count = 0
 
   const ignoreFunc = (file, stats) => {
@@ -38,13 +39,13 @@ await (async () => {
     return indices
   }
 
-  const allowFunc = (file) => FILETYPES_ALLOWED.has(path.extname(file).slice(1))
+  const allowFunc = file => FILETYPES_ALLOWED.has(path.extname(file).slice(1))
 
   const escape = (string, charToEscape) => {
     return string.replace(new RegExp(`\\${charToEscape}`, 'g'), `\\${charToEscape}`)
   }
 
-  const runNpmVersion = (version) => {
+  const runNpmVersion = version => {
     const cmd = `npm version --commit-hooks false --git-tag-version false ${version}`
 
     return new Promise((resolve, reject) => {
@@ -60,7 +61,7 @@ await (async () => {
     })
   }
 
-  const replaceVersion = async (file, oldVersion, newVersion) => {
+  const replaceVersion = async(file, oldVersion, newVersion) => {
     const regexEscapeOldVersion = escape(oldVersion, '.')
     const regexOldVersion = new RegExp(regexEscapeOldVersion, 'g')
     const originalString = await fse.readFile(file, 'utf8')
@@ -105,7 +106,7 @@ await (async () => {
     }
   }
 
-  const main = async (args) => {
+  const main = async args => {
     let [oldVersion, newVersion] = args
     newVersion = await runNpmVersion(newVersion)
 
@@ -113,7 +114,7 @@ await (async () => {
       const files = await rr(DIR_BASE, [ignoreFunc])
       const filesToCheck = files.filter(file => allowFunc(file))
 
-      await Promise.all(filesToCheck.map(async (file) => await replaceVersion(file, oldVersion, newVersion)))
+      await Promise.all(filesToCheck.map(async file => await replaceVersion(file, oldVersion, newVersion)))
 
       console.log(
         '\u001B[34m', // blue
