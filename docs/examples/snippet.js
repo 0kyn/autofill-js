@@ -13,7 +13,7 @@
 
   const renderSnippets = async () => {
     const snippets = document.querySelectorAll('.js-snippet')
-    const baseUrl = '/examples/snippets'
+    const baseUrl = '../snippets'
     for (const snippet of snippets) {
       const dataSnippet = snippet.getAttribute('data-snippet')
       if (dataSnippet) {
