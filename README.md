@@ -139,8 +139,6 @@ defaultConfig = {
 - Handle specific forms
 
 ```js
-// first arg is a query selector string
-// second arg is the config
 autofill({
   // display an overlay with config infos & reset/autofill buttons
   overlay: true,
