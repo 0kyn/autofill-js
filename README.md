@@ -62,13 +62,11 @@ You might also specify arbitrary values
 ```javascript
 autofill({
   inputs: {
-    email: 'john@doe.com',
     // username: 'jdoe', // input is not defined so it lets it empty
+    email: 'john@doe.com',
     selectMultiple: ['UKNW', 'PLCE'],
-    checkboxes: ['option1', 'option2'],
-    // as for selectMultiple you can check inputs by values
-    checkboxes: [0, 1],
-    // or by index position (result is the same as above)
+    checkboxes: ['option1', 'option2'], // as for selectMultiple you can check inputs by values
+    // checkboxes: [0, 1], // or by index position (result is the same as above)
   }
 })
 ```
@@ -90,7 +88,7 @@ defaultConfig = {
   // form query selector
   formsSelectors: ['form'],
 
-  // generated value must be valid according to inputs attributes ['type', 'minlength',
+  // generated value must be valid according to inputs attributes
   validateInputAttributes: ['minlength', 'maxlength'],
 
   // emit submit event after form's inputs filling
@@ -187,8 +185,7 @@ autofill({
 
 ```js
 autofill({
-  events: ['change', 'input'],
-  // dispatch events once input value set
+  events: ['change', 'input'], // dispatch events once input value set
   inputs: {
     username: 'jdoe', // trigger 'change' & 'input'
     email: {
