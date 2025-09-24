@@ -1,6 +1,6 @@
 import * as utils from './utils'
 
-import { AutofillConfig, AutofillInput } from './types/autofill.types'
+import type { AutofillConfig, AutofillInput } from './types/autofill.types'
 import { ConfigManager } from './config-manager'
 import Random from './random'
 import { TextInputHandler } from './handlers/text-handler'

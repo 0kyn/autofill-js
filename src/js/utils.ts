@@ -1,4 +1,4 @@
-import { AutofillInput } from './types/autofill.types'
+import type { AutofillInput } from './types/autofill.types'
 
 export const isObject = (thing: unknown): thing is object =>
   typeof thing === 'object' && !Array.isArray(thing) && thing !== null

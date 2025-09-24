@@ -1,7 +1,7 @@
 /* eslint-disable @stylistic/max-len */
 import { Autofill } from './autofill'
 import { ConfigManager } from './config-manager'
-import { AutofillConfig, AutofillDomForm, AutofillForm, AutofillOptions } from './types/autofill.types'
+import type { AutofillConfig, AutofillDomForm, AutofillForm, AutofillOptions } from './types/autofill.types'
 import constants from './constants'
 
 export default class Overlay {
