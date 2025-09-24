@@ -1,4 +1,4 @@
-import { AutofillInput } from './types/autofill.types'
+import type { AutofillInput } from './types/autofill.types'
 
 interface SyntheticEvent {
   target: Element

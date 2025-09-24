@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { AutofillInput } from '../../src/js/types/autofill.types'
+import type { AutofillInput } from '../../src/js/types/autofill.types'
 import {
   hasProp,
   asArray,

@@ -2,7 +2,7 @@ import * as utils from './utils'
 import Random from './random'
 import Overlay from './overlay'
 import { ConfigManager } from './config-manager'
-import {
+import type {
   AutofillOptions,
   AutofillDomForm,
   AutofillInfos,

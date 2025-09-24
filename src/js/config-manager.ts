@@ -1,5 +1,5 @@
 import * as utils from './utils'
-import {
+import type {
   AutofillConfig,
   AutofillOptions,
   AutofillForms,

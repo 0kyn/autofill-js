@@ -1,4 +1,4 @@
-import { AutofillInput } from './types/autofill.types'
+import type { AutofillInput } from './types/autofill.types'
 import * as utils from './utils'
 
 interface RandomConfig {
