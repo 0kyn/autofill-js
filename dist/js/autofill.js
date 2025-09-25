@@ -36,8 +36,8 @@
 
   // src/js/constants.ts
   var constants_default = {
-    CDN_JS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.0/dist/js/autofill.min.js",
-    CDN_CSS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.0/dist/css/autofill.min.css",
+    CDN_JS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.2/dist/js/autofill.min.js",
+    CDN_CSS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.2/dist/css/autofill.min.css",
     DEV_HOSTS: [
       "127.0.0.1:5100",
       "127.0.0.1:5101"
@@ -194,7 +194,7 @@
     };
     infos = {
       author: "0kyn",
-      version: "2.0.0",
+      version: "2.0.2",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
