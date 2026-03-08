@@ -2,7 +2,7 @@ import { ConfigManager } from '../config-manager'
 import Random from '../random'
 import { fireEvent } from '../event'
 
-import {
+import type {
   AutofillConfig,
   AutofillInput,
   AutofillInputsOptions,
