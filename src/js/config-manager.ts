@@ -30,7 +30,7 @@ export class ConfigManager {
 
   public readonly infos: Readonly<AutofillInfos> = {
     author: '0kyn',
-    version: '2.0.4',
+    version: '2.0.5',
     name: 'Autofill.js',
     github: 'https://github.com/0kyn/autofill-js',
     npm: 'https://www.npmjs.com/package/autofill-js',

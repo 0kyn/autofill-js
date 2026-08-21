@@ -36,8 +36,8 @@
 
   // src/js/constants.ts
   var constants_default = {
-    CDN_JS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.4/dist/js/autofill.min.js",
-    CDN_CSS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.4/dist/css/autofill.min.css",
+    CDN_JS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.5/dist/js/autofill.min.js",
+    CDN_CSS_URL: "https://cdn.jsdelivr.net/npm/autofill-js@2.0.5/dist/css/autofill.min.css",
     DEV_HOSTS: [
       "127.0.0.1:5100",
       "127.0.0.1:5101"
@@ -51,6 +51,9 @@
       this.configManager = configManager;
       this.domForms = domForms;
     }
+    autofill;
+    configManager;
+    domForms;
     // @todo nombre de form détecté dans le dom
     init() {
       const link = document.createElement("link");
@@ -194,7 +197,7 @@
     };
     infos = {
       author: "0kyn",
-      version: "2.0.4",
+      version: "2.0.5",
       name: "Autofill.js",
       github: "https://github.com/0kyn/autofill-js",
       npm: "https://www.npmjs.com/package/autofill-js"
@@ -909,6 +912,10 @@
       const identifier = this.getInputIdentifier(input, formConfig);
       this.config = this.configManager.getInputConfig(formSelector, identifier);
     }
+    input;
+    configManager;
+    randomInstance;
+    formSelector;
     config;
     generateInputValue(input, config) {
       let value;
@@ -1126,6 +1133,8 @@
         withPreset: this.config.random ? this.config.randomPreset : true
       });
     }
+    configManager;
+    form;
     formSelector;
     config;
     randomInstance;
@@ -1273,6 +1282,7 @@
       this.options = options;
       this.configManager = new ConfigManager(options);
     }
+    options;
     configManager;
     domForms = [];
     randomInstance;
